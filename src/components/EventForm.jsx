@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 
 function EventForm({ onSave }) {
-  // form states
   const [title, setTitle] = useState("");
   const [date, setDate] = useState("");
   const [startTime, setStartTime] = useState("");
@@ -12,9 +11,7 @@ function EventForm({ onSave }) {
 
   const [message, setMessage] = useState("");
 
-  // Handle submit
   const handleSubmit = () => {
-    // Basic validation
     if (!title || !date || !startTime || !endTime) {
       setMessage("Please fill all required fields.");
       return;
