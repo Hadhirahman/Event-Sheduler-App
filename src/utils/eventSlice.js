@@ -4,7 +4,8 @@ import { createSlice } from "@reduxjs/toolkit";
 const eventsSlice = createSlice({
   name: "events",
   initialState: {
-    list: []
+    list: [],
+    selectedDate:null
   },
   reducers: {
     setEvents(state, action) {
@@ -30,9 +31,20 @@ const eventsSlice = createSlice({
     (e) => (e._id || e.id) !== id
   );
     
-  }
+  },
+
+
+   setSelectedDate(state, action) {
+      state.selectedDate = action.payload;
+    },
+
+
+
+    clearSelectedDate(state) {
+      state.selectedDate = null;
+    },
   },
 });
 
-export const { setEvents, addEvent, clearEvents ,updateEvent,deleteEvent} = eventsSlice.actions;
+export const { setEvents, addEvent, clearEvents ,updateEvent,deleteEvent,setSelectedDate,clearSelectedDate} = eventsSlice.actions;
 export default eventsSlice.reducer;
