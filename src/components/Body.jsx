@@ -23,7 +23,7 @@ function Body() {
         withCredentials: true,
       });
       dispatch(addUser(res.data));
-      
+      navigate("/");
     } catch (err) {
       if (err.status === 401) {
         navigate("/login");

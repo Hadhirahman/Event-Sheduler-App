@@ -6,13 +6,12 @@ import {dummyEvents} from '../data/dummyEvents';
 import { useSelector } from 'react-redux';
 
 function Eventpage() {
-const userData=useSelector((store)=>store.user);
 
-console.log(userData);
+const userData=useSelector((store)=>store.user);
 
   return (
     <div className='mt-2 W-full flex justify-around '>
-      {userData && userData.role !== "admin" && <EventForm />}
+      {userData && userData.user.role !== "user" && <EventForm user={userData.user.name} />}
 
       <Calender  />
     </div>

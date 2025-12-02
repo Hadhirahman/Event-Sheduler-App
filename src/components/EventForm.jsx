@@ -1,22 +1,28 @@
 import React, { useState } from "react";
+import axios from "axios";
+import { BASE_URL } from "../utils/constants";
+import { useDispatch } from "react-redux";
+import { addEvent } from "../utils/eventSlice";
 
-function EventForm({ onSave }) {
+function EventForm(name) {
+
   const [title, setTitle] = useState("");
   const [date, setDate] = useState("");
   const [startTime, setStartTime] = useState("");
   const [endTime, setEndTime] = useState("");
   const [venue, setVenue] = useState("");
-  const [mode, setMode] = useState("Offline");
+  const [mode, setMode] = useState("offline");
   const [description, setDescription] = useState("");
 
+const dispatch=useDispatch()
   const [message, setMessage] = useState("");
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
+    
     if (!title || !date || !startTime || !endTime) {
       setMessage("Please fill all required fields.");
       return;
     }
-
     const eventData = {
       title,
       date,
@@ -27,23 +33,27 @@ function EventForm({ onSave }) {
       description,
     };
 
-    // send data to parent if provided
-    if (onSave) {
-      onSave(eventData);
-    }
-    console.log(eventData);
-    
-    // show success message
-    setMessage("Event saved successfully!");
+    try {
+      const res = await axios.post(BASE_URL + "/event", eventData, {
+        withCredentials: true,
+      });
+      console.log(res.data.event);
+      
+     dispatch(addEvent(res.data.event))
+      setMessage(res.data.message)
 
-    // clear form
-    setTitle("");
-    setDate("");
-    setStartTime("");
-    setEndTime("");
-    setVenue("");
-    setMode("Offline");
-    setDescription("");
+      setTitle("");
+      setDate("");
+      setStartTime("");
+      setEndTime("");
+      setVenue("");
+      setMode("offline");
+      setDescription("");
+
+    } catch (err) {
+      console.error(err);
+      setMessage(err.response.data.message);
+    }
   };
 
   return (
@@ -119,8 +129,8 @@ function EventForm({ onSave }) {
             onChange={(e) => setMode(e.target.value)}
             className="select w-full"
           >
-            <option>Offline</option>
-            <option>Online</option>
+            <option>offline</option>
+            <option>online</option>
           </select>
 
           <label className="label mt-2">

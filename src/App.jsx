@@ -6,6 +6,7 @@ import Eventpage from './components/Eventpage'
 import Login from './components/Login'
 import { Provider } from 'react-redux'
 import appStore from './utils/appStore'
+import EditEventForm from './components/EditEventForm'
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
           <Route path='/' element={<Body/>}>
             <Route path='/' element={<Eventpage/>}/>
             <Route path='/login' element={<Login/>}/>
+            <Route path='/update/:id' element={<EditEventForm/>}/>
           </Route>
         </Routes>
       </BrowserRouter>
