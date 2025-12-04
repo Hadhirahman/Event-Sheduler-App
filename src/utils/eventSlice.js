@@ -5,7 +5,9 @@ const eventsSlice = createSlice({
   name: "events",
   initialState: {
     list: [],
-    selectedDate:null
+    filterList:[],
+    selectedDay:undefined
+  
   },
   reducers: {
     setEvents(state, action) {
@@ -32,19 +34,23 @@ const eventsSlice = createSlice({
   );
     
   },
+filterEvent(state, action) {
+  const selectDate = action.payload; // "YYYY-MM-DD"
+  state.filterList = state.list.filter(
+    (item) => item.date.split("T")[0] === selectDate
+  );
+},
+addSelectDay(state,action){
+state.selectedDay=action.payload
+}
 
+,clearFilter(state) {
+  state.filterList = [];
+  
+}
 
-   setSelectedDate(state, action) {
-      state.selectedDate = action.payload;
-    },
-
-
-
-    clearSelectedDate(state) {
-      state.selectedDate = null;
-    },
   },
 });
 
-export const { setEvents, addEvent, clearEvents ,updateEvent,deleteEvent,setSelectedDate,clearSelectedDate} = eventsSlice.actions;
+export const { setEvents, addEvent, clearEvents ,updateEvent,deleteEvent,filterEvent,  clearFilter,addSelectDay} = eventsSlice.actions;
 export default eventsSlice.reducer;

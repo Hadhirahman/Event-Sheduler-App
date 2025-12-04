@@ -1,7 +1,7 @@
-// src/components/EditEventForm.jsx
+
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { BASE_URL } from "../utils/constants"; // make sure this is exported correctly
+import { BASE_URL } from "../utils/constants";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams, useNavigate } from "react-router-dom";
 import { updateEvent } from "../utils/eventSlice";
@@ -78,7 +78,7 @@ export default function EditEventForm() {
     setSaving(true);
     try {
     
-      const res = await axios.put(`${BASE_URL}/event/${event._id || event.id}`, eventData, {
+      const res = await axios.put(`${BASE_URL}/admin/event/${event._id || event.id}`, eventData, {
         withCredentials: true,
       });
 

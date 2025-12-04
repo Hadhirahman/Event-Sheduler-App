@@ -9,6 +9,7 @@ import appStore from './utils/appStore'
 import EditEventForm from './components/EditEventForm'
 
 function App() {
+
   return (
     <>
     <Provider store={appStore}>
@@ -22,7 +23,6 @@ function App() {
         </Routes>
       </BrowserRouter>
       </Provider>
-
     </>
   )
 }

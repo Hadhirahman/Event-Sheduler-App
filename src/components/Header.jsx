@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { BASE_URL } from "../utils/constants";
 import { removeUser } from "../utils/userSlice";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function Header( ) {
   const userData=useSelector((store)=>store.user);
@@ -17,7 +17,7 @@ export default function Header( ) {
 
   const handleLogout = async () => {
     try {
-      await axios.post(BASE_URL + "/logout", {}, { withCredentials: true });
+      await axios.post(BASE_URL + "/auth/logout", {}, { withCredentials: true });
       dispatch(removeUser());
       navigate("/login", { replace: true });
     } catch (err) {
@@ -49,16 +49,20 @@ export default function Header( ) {
             </div>
           </div>
 
-          {userData &&<ul
+          <ul
             tabIndex={-1}
             className="menu menu-sm dropdown-content bg-white rounded-box z-10 mt-3 w-52 p-2"
           >
-            <li>
-              <button onClick={handleLogout} className="w-full text-left text-black">
+           {!userData ? <li>
+             <Link to={"/login"}><button  className="w-full text-left text-black">
+                Login
+              </button></Link> 
+            </li>:
+            <button onClick={handleLogout} className="w-full text-left text-black">
                 Logout
               </button>
-            </li>
-          </ul>}
+            }
+          </ul>
         </div>
       </div>
     </div>

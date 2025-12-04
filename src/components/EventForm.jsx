@@ -34,7 +34,7 @@ const dispatch=useDispatch()
     };
 
     try {
-      const res = await axios.post(BASE_URL + "/event", eventData, {
+      const res = await axios.post(BASE_URL + "/admin/event", eventData, {
         withCredentials: true,
       });
       console.log(res.data.event);
